@@ -55,4 +55,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'spree', '~> 4.1'
 gem 'spree_auth_devise', '~> 4.1'
 gem 'spree_gateway', '~> 3.7'
-gem 'spree_multi_vendor', github: 'spree-contrib/spree_multi_vendor'
+#gem 'spree_multi_vendor', github: 'spree-contrib/spree_multi_vendor'
