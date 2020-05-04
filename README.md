@@ -4,7 +4,6 @@
     * cd inside_project_folder/
     * docker-compose up --build
     * Open another terminal and run the following commands in the same project directory.
-    * docker-compose exec web bundle exec rails db:create
     * docker-compose exec web bundle exec rails db:migrate
     * docker-compose exec web bundle exec rails db:seed
     * docker-compose exec web bundle exec rake spree_sample:load 
