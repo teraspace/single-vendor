@@ -1,4 +1,5 @@
 # Setup on local with Docker
+    * The project runs at port 8000, so please make sure that nothing else is running on port 8000
     * Clone the project repository
     * cd inside_project_folder/
     * docker-compose up --build
