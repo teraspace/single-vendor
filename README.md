@@ -1,5 +1,5 @@
 # Setup on local with Docker
-    * The project runs at port 8000, so please make sure that nothing else is running on port 8000
+    * The project runs at port 9000, so please make sure that nothing else is running on port 9000
     * Clone the project repository
     * cd inside_project_folder/
     * docker-compose up --build
@@ -9,7 +9,7 @@
     * docker-compose exec web bundle exec rails db:seed
     * docker-compose exec web bundle exec rake spree_sample:load 
     * docker-compose exec web bundle exec rails g spree:frontend:copy_storefront
-    * Visit http://localhost:8000/
+    * Visit http://localhost:9000/
 
 
 # Deploy on development server
