@@ -1,28 +1,262 @@
-<%# leaving #spree-header div for legacy support  %>
-<% cache spree_nav_cache_key('header') do %>
-  <div id="spree-header" data-turbolinks-permanent>
-    <header id="header" class="d-flex align-items-center header-spree border-bottom">
-      <div class="container-fluid h-100 header-spree-fluid">
-        <div class="d-flex flex-nowrap align-items-center h-100">
-          <div class="d-xl-none flex-grow-1 header-spree-fluid-mobile-menu-toggler">
-            <button class="navbar-toggler border-0 px-0 d-flex" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-label="<%= Spree.t('nav_bar.show_menu') %>">
-              <%= icon(name: 'burger',
-                      width: 18.5,
-                      height: 16)  %>
-            </button>
-          </div>
-          <figure class="logo flex-grow-0 flex-xl-grow-1 order-xl-0 header-spree-fluid-logo m-0">
-            <%= logo %>
-          </figure>
-          <div id="main-nav-bar" class="flex-grow-0 d-none d-xl-block h-100 header-spree-fluid-primary-navigation">
-            <%= render partial: 'spree/shared/main_nav_bar' %>
-          </div>
-          <div id="top-nav-bar" class="flex-grow-1 header-spree-fluid-secondary-navigation">
-            <%= render partial: 'spree/shared/nav_bar' %>
-          </div>
-          <%= render partial: 'spree/shared/mobile_navigation' %>
+<!-- mobile site__header -->
+<header class="site__header d-lg-none">
+    <!-- data-sticky-mode - one of [pullToShow, alwaysOnTop] -->
+    <div class="mobile-header mobile-header--sticky" data-sticky-mode="pullToShow">
+        <div class="mobile-header__panel">
+            <div class="container">
+                <div class="mobile-header__body">
+                    <button class="mobile-header__menu-button">
+                        <svg width="18px" height="14px">
+                            <use xlink:href="assets/sprite.svg#menu-18x14"></use>
+                        </svg>
+                    </button>
+                    <a class="mobile-header__logo" href="index.html" style="width: 10px !important;">
+                        <!-- mobile-logo -->
+             
+                        <%= image_tag(Spree::Config[:logo], size: '50', class: 'logo') %>
+            
+                        <!-- mobile-logo / end -->
+                    </a>
+                    <div class="search search--location--mobile-header mobile-header__search">
+                        <div class="search__body">
+                            <%= render partial: 'spree/shared/search' %>
+                            <div class="search__suggestions suggestions suggestions--location--mobile-header"></div>
+                        </div>
+                    </div>
+                    <div class="mobile-header__indicators">
+                        <div class="indicator indicator--mobile-search indicator--mobile d-md-none">
+                            <button class="indicator__button">
+                                <span class="indicator__area">
+                                    <svg width="20px" height="20px">
+                                        <use xlink:href="assets/sprite.svg#search-20"></use>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="indicator indicator--mobile d-sm-flex d-none">
+                            <a href="wishlist.html" class="indicator__button">
+                                <span class="indicator__area">
+                                    <svg width="20px" height="20px">
+                                        <use xlink:href="assets/sprite.svg#heart-20"></use>
+                                    </svg>
+                                    <span class="indicator__value">0</span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="indicator indicator--mobile">
+                            <a href="cart.html" class="indicator__button">
+                                <span class="indicator__area">
+                                    <svg width="20px" height="20px">
+                                        <use xlink:href="assets/sprite.svg#cart-20"></use>
+                                    </svg>
+                                    <span class="indicator__value">3</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </header>
-  </div>
-<% end %>
+    </div>
+</header>
+<!-- mobile site__header / end -->
+<!-- desktop site__header -->
+<header class="site__header d-lg-block d-none">
+    <div class="site-header">
+        <!-- .topbar -->
+        <div class="site-header__topbar topbar">
+            <div class="topbar__container container">
+                <div class="topbar__row">
+                    <div class="topbar__item topbar__item--link">
+                        <a class="topbar-link" href="about-us.html">About Us</a>
+                    </div>
+                    <div class="topbar__item topbar__item--link">
+                        <a class="topbar-link" href="contact-us.html">Contacts</a>
+                    </div>
+                    <div class="topbar__item topbar__item--link">
+                        <a class="topbar-link" href="">Store Location</a>
+                    </div>
+                    <div class="topbar__item topbar__item--link">
+                        <a class="topbar-link" href="track-order.html">Track Order</a>
+                    </div>
+                    <div class="topbar__item topbar__item--link">
+                        <a class="topbar-link" href="blog-classic.html">Blog</a>
+                    </div>
+                    <div class="topbar__spring"></div>
+                    <div class="topbar__item">
+                        <div class="topbar-dropdown">
+                            <button class="topbar-dropdown__btn" type="button">
+                                My Account
+                                <svg width="7px" height="5px">
+                                    <use xlink:href="assets/sprite.svg#arrow-rounded-down-7x5"></use>
+                                </svg>
+                            </button>
+                            <div class="topbar-dropdown__body">
+                                <!-- .menu -->
+                                <div class="menu menu--layout--topbar ">
+                                    <div class="menu__submenus-container"></div>
+                                    <ul class="menu__list">
+                                        <% if try_spree_current_user %>
+                                            <li class="menu__item">
+                                                <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                                <div class="menu__item-submenu-offset"></div>
+                                                <%= link_to Spree.t('nav_bar.my_account'), spree.account_path, class: 'menu__item-link' if spree.respond_to?(:account_path) %>
+                                            </li>
+                                            <li class="menu__item">
+                                                <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                                <div class="menu__item-submenu-offset"></div>
+                                                <%= link_to Spree.t('nav_bar.log_out'), spree_logout_path, class: 'menu__item-link', method: :get if defined?(spree_logout_path) %>
+                                            </li>                                            
+                                        <% else %>
+                                            <li class="menu__item">
+                                                <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                                <div class="menu__item-submenu-offset"></div>
+                                                <%= link_to Spree.t('nav_bar.log_in'), spree_login_path, class: 'menu__item-link' if defined?(spree_login_path) %>
+                                            </li>
+                                            <li class="menu__item">
+                                                <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                                <div class="menu__item-submenu-offset"></div>
+                                                <%= link_to Spree.t('nav_bar.sign_up'), spree_signup_path, class: 'menu__item-link' if defined?(spree_signup_path) %>
+                                            </li>
+                                        <% end %>
+                                    </ul>
+                                </div>
+                                <!-- .menu / end -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topbar__item">
+                        <div class="topbar-dropdown">
+                            <button class="topbar-dropdown__btn" type="button">
+                                Currency: <span class="topbar__item-value">USD</span>
+                                <svg width="7px" height="5px">
+                                    <use xlink:href="assets/sprite.svg#arrow-rounded-down-7x5"></use>
+                                </svg>
+                            </button>
+                            <div class="topbar-dropdown__body">
+                                <!-- .menu -->
+                                <div class="menu menu--layout--topbar ">
+                                    <div class="menu__submenus-container"></div>
+                                    <ul class="menu__list">
+                                        <li class="menu__item">
+                                            <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                            <div class="menu__item-submenu-offset"></div>
+                                            <a class="menu__item-link" href="">
+                                                € Euro
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                            <div class="menu__item-submenu-offset"></div>
+                                            <a class="menu__item-link" href="">
+                                                £ Pound Sterling
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                            <div class="menu__item-submenu-offset"></div>
+                                            <a class="menu__item-link" href="">
+                                                $ US Dollar
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                            <div class="menu__item-submenu-offset"></div>
+                                            <a class="menu__item-link" href="">
+                                                ₽ Russian Ruble
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- .menu / end -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topbar__item">
+                        <div class="topbar-dropdown">
+                            <button class="topbar-dropdown__btn" type="button">
+                                Language: <span class="topbar__item-value">EN</span>
+                                <svg width="7px" height="5px">
+                                    <use xlink:href="assets/sprite.svg#arrow-rounded-down-7x5"></use>
+                                </svg>
+                            </button>
+                            <div class="topbar-dropdown__body">
+                                <!-- .menu -->
+                                <div class="menu menu--layout--topbar  menu--with-icons ">
+                                    <div class="menu__submenus-container"></div>
+                                    <ul class="menu__list">
+                                        <li class="menu__item">
+                                            <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                            <div class="menu__item-submenu-offset"></div>
+                                            <a class="menu__item-link" href="">
+                                                <div class="menu__item-icon"><img srcset="assets/languages/language-1.png 1x, languages/language-1@2x.png 2x" src="assets/languages/language-1.png" alt=""></div>
+                                                English
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                            <div class="menu__item-submenu-offset"></div>
+                                            <a class="menu__item-link" href="">
+                                                <div class="menu__item-icon"><img srcset="assets/languages/language-2.png 1x, languages/language-2@2x.png 2x" src="assets/languages/language-2.png" alt=""></div>
+                                                French
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                            <div class="menu__item-submenu-offset"></div>
+                                            <a class="menu__item-link" href="">
+                                                <div class="menu__item-icon"><img srcset="assets/languages/language-3.png 1x, languages/language-3@2x.png 2x" src="assets/languages/language-3.png" alt=""></div>
+                                                German
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                            <div class="menu__item-submenu-offset"></div>
+                                            <a class="menu__item-link" href="">
+                                                <div class="menu__item-icon"><img srcset="assets/languages/language-4.png 1x, languages/language-4@2x.png 2x" src="assets/languages/language-4.png" alt=""></div>
+                                                Russian
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <!-- This is a synthetic element that allows to adjust the vertical offset of the submenu using CSS. -->
+                                            <div class="menu__item-submenu-offset"></div>
+                                            <a class="menu__item-link" href="">
+                                                <div class="menu__item-icon"><img srcset="assets/languages/language-5.png 1x, languages/language-5@2x.png 2x" src="assets/languages/language-5.png" alt=""></div>
+                                                Italian
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- .menu / end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .topbar / end -->
+        <div class="site-header__middle container">
+            <div class="site-header__logo">
+                <a href="index.html">
+                    <!-- logo -->
+                    <%= image_tag(Spree::Config[:logo], width: '160', height: '60', class: 'logo') %>
+                    <!-- logo / end -->
+                </a>
+            </div>
+            <div class="site-header__search">
+                <div class="search search--location--header ">
+                    <div class="search__body">
+                        <%= render partial: 'spree/shared/search' %>
+                        <div class="search__suggestions suggestions suggestions--location--header"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="site-header__phone">
+                <div class="site-header__phone-title">Customer Service</div>
+                <div class="site-header__phone-number">(800) 060-0730</div>
+            </div>
+        </div>
+        <%= render partial: 'spree/shared/main_nav_bar' %>
+    </div>
+</header>
+<!-- desktop site__header / end -->

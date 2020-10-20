@@ -1,11 +1,25 @@
 <title><%= title %></title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="format-detection" content="telephone=no">
 <%== meta_image_data_tag %>
 <%== meta_data_tags %>
 <%= canonical_tag(current_store.url) %>
 <%= favicon_link_tag 'favicon.ico' %>
-<%= stylesheet_link_tag 'spree/frontend/all', media: 'screen', 'data-turbolinks-track': 'reload' %>
+<!--<%= stylesheet_link_tag 'spree/frontend/all', media: 'screen', 'data-turbolinks-track': 'reload' %>-->
 <%= csrf_meta_tags %>
 <%= render 'spree/shared/paths' %>
 <%= javascript_include_tag 'spree/frontend/all', defer: true, 'data-turbolinks-track': 'reload' %>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i">
+<!-- css -->
+<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="assets/owl-carousel/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="assets/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="assets/photoswipe/default-skin/default-skin.css">
+<link rel="stylesheet" href="assets/select2/css/select2.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<!-- font - fontawesome -->
+<link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+<!-- font - stroyka -->
+<link rel="stylesheet" href="assets/fonts/stroyka/stroyka.css">
 <%= yield :head %>

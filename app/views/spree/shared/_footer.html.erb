@@ -1,75 +1,105 @@
 <% cache spree_nav_cache_key('footer') do %>
-  <footer id="footer" class="pt-2 mx-auto border-top footer-spree" data-turbolinks-permanent>
-    <div class="container">
-      <div class="row d-xl-flex justify-content-xl-around pb-xl-5">
-        <div class="d-flex d-xl-block flex-xl-grow-0 col-xl-4">
-          <figure class="logo mx-auto mx-xl-0 pt-xl-2 pb-xl-1">
-            <%= logo %>
-          </figure>
-          <% if current_store.meta_description %>
-            <div class="d-none d-xl-block pt-xl-2 footer-spree-info">
-              <%= current_store.meta_description %>
+<footer class="site__footer">
+    <div class="site-footer">
+        <div class="container">
+            <div class="site-footer__widgets">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="site-footer__widget footer-contacts">
+                            <h5 class="footer-contacts__title">Contact Us</h5>
+                            <div class="footer-contacts__text">
+                              <% if current_store.meta_description %>
+                                  <%= current_store.meta_description %>
+                              <% end %>                            
+                            </div>
+                            <ul class="footer-contacts__contacts">
+                                <li><i class="footer-contacts__icon fas fa-globe-americas"></i> 715 Fake Street, New York 10021 USA</li>
+                                <li><i class="footer-contacts__icon far fa-envelope"></i>
+                                  <% if current_store.mail_from_address %>
+                                    <%= Spree.t(:email) %>: <%= current_store.mail_from_address %>
+                                  <% end %>
+                                </li>
+                                <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> (800) 060-0730, (800) 060-0730</li>
+                                <li><i class="footer-contacts__icon far fa-clock"></i> Mon-Sat 10:00pm - 7:00pm</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <% spree_navigation_data.first(2).each do |root| %> 
+                      <div class="col-6 col-md-3 col-lg-2">
+                          <div class="site-footer__widget footer-links">
+                              <h5 class="footer-links__title"><%= link_to root[:title], root[:url] %></h5>
+                              <ul class="footer-links__list">
+                                <% root[:items].each do |item| %>
+                                  <li class="footer-links__item">
+                                    <%= link_to item[:title], item[:url], class:"footer-links__link"  %> 
+                                  </li>
+                                <% end %>              
+                              </ul>
+                          </div>
+                      </div>
+                    <% end %>
+
+
+                    <div class="col-12 col-md-12 col-lg-4">
+                        <div class="site-footer__widget footer-newsletter">
+                            <h5 class="footer-newsletter__title">Newsletter</h5>
+                            <div class="footer-newsletter__text">
+                                Praesent pellentesque volutpat ex, vitae auctor lorem pulvinar mollis felis at lacinia.
+                            </div>
+                            <form action="" class="footer-newsletter__form">
+                                <label class="sr-only" for="footer-newsletter-address">Email Address</label>
+                                <input type="text" class="footer-newsletter__form-input form-control" id="footer-newsletter-address" placeholder="Email Address...">
+                                <button class="footer-newsletter__form-button btn btn-primary">Subscribe</button>
+                            </form>
+                            <% unless current_store.facebook.blank? && current_store.twitter.blank? && current_store.instagram.blank? %>
+                              <div class="footer-newsletter__text footer-newsletter__text--social">
+                                <%= Spree.t(:follow_us) %>
+                              </div>
+                            <% end %>
+                            <!-- social-links -->
+                            <div class="social-links footer-newsletter__social-links social-links--shape--circle">
+                                <ul class="social-links__list">
+                                    <li class="social-links__item">
+                                        <a class="social-links__link social-links__link--type--rss" href="" target="_blank">
+                                            <i class="fas fa-rss"></i>
+                                        </a>
+                                    </li>
+                                    <li class="social-links__item">
+                                        <a class="social-links__link social-links__link--type--youtube" href="" target="_blank">
+                                            <i class="fab fa-youtube"></i>
+                                        </a>
+                                    </li>
+                                    <li class="social-links__item">
+                                      <%= spree_social_link('facebook') %>
+                                    </li>
+                                    <li class="social-links__item">
+                                      <%= spree_social_link('twitter') %>
+                                    </li>
+                                    <li class="social-links__item">
+                                      <%= spree_social_link('instagram') %>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- social-links / end -->
+                        </div>
+                    </div>
+                </div>
             </div>
-          <% end %>
+            <%= render 'spree/shared/copyright' %>
         </div>
-        <div class="d-block flex-nowrap py-2 order-xl-last col-xl-3 offset-xl-1">
-          <% unless current_store.facebook.blank? && current_store.twitter.blank? && current_store.instagram.blank? %>
-            <div class="d-none d-xl-block pt-4 pb-3 pl-2 footer-spree-label">
-              <%= Spree.t(:follow_us) %>
+        <div class="totop">
+            <div class="totop__body">
+                <div class="totop__start"></div>
+                <div class="totop__container container"></div>
+                <div class="totop__end">
+                    <button type="button" class="totop__button">
+                        <svg width="13px" height="8px">
+                            <use xlink:href="assets/sprite.svg#arrow-rounded-up-13x8"></use>
+                        </svg>
+                    </button>
+                </div>
             </div>
-          <% end %>
-          <div class="d-flex d-xl-block justify-content-center mx-auto">
-            <div class="d-flex">
-              <%= spree_social_link('facebook') %>
-              <%= spree_social_link('twitter') %>
-              <%= spree_social_link('instagram') %>
-            </div>
-          </div>
         </div>
-        <div class="py-xl-2 col-xl-3 offset-xl-1">
-          <div class="d-none d-xl-block pt-4 pb-3 footer-spree-label">
-            <%= Spree.t(:contact_us) %>
-          </div>
-          <div class="d-flex flex-column align-items-center align-items-xl-start pb-3 flex-grow-2 footer-spree-contact-note">
-            <div>
-              <%= current_store.name %>,
-              2382 Locust Ave<br/>
-              Long Beach, CA 90806, USA
-            </div>
-            <div>Call us now: 760-673-8590</div>
-            <% if current_store.mail_from_address %>
-              <div><%= Spree.t(:email) %>: <%= current_store.mail_from_address %></div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <div class="row d-none d-xl-flex border-top py-5 text-uppercase footer-spree-menu-links">
-        <% if spree_navigation_data.any? %>
-          <% spree_navigation_data.first(3).each do |root| %>
-            <div class="col-3">
-              <div class="footer-spree-label">
-                <%= link_to root[:title], root[:url] %>
-              </div>
-              <% if  root[:items].present? %>
-                <% root[:items].each do |item| %>
-                  <div class="pt-2"><%= link_to item[:title], item[:url] %></div>
-                <% end %>
-              <% end %>
-            </div>
-          <% end %>
-        <% end %>
-        <% if spree.respond_to?(:account_path) %>
-          <div class="col-3">
-            <div class="footer-spree-label">
-              <%= Spree.t('nav_bar.my_account') %>
-            </div>
-            <div class="pt-2">
-              <%= link_to Spree.t('nav_bar.my_orders'), spree.account_path(anchor: "account-my-orders") %>
-            </div>
-          </div>
-        <% end %>
-      </div>
     </div>
-    <%= render 'spree/shared/copyright' %>
-  </footer>
+</footer>
 <% end %>

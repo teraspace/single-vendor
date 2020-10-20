@@ -3,12 +3,13 @@ services:
   db:
     image: postgres
     volumes:
-      - ../../tmp/db:/var/lib/postgresql/data
+      - pgsql:/var/lib/postgresql/data
     ports:
-      - "5432"
+      - "5432:5432"
     environment:
-      POSTGRES_HOST_AUTH_METHOD: trust
-      POSTGRES_DB: spree-single-vendor
+      - POSTGRES_DB=db
+      - POSTGRES_USER=test_user
+      - POSTGRES_PASSWORD=pwd
   web:
     build: .
     command: /bin/sh -c "rm -f /home/app/tmp/pids/server.pid && bundle exec rails s -p 9000 -b '0.0.0.0'"
@@ -22,3 +23,5 @@ services:
       DATABASE_PASSWORD: password
       DATABASE_HOST: db
       DATABASE_USERNAME: postgres
+volumes:
+  pgsql:

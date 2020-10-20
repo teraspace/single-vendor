@@ -1,19 +1,26 @@
-<%= form_tag spree.products_path, method: :get, class: "py-md-1 d-flex align-items-center" do %>
-  <%= search_field_tag :keywords,
-                       params[:keywords],
-                       placeholder: Spree.t(:search),
-                       autofocus: true,
-                       class: " border-0 p-3"
-  %>
-  <label class="m-0">
-    <input type="submit">
-    <%= icon(name: 'search',
-             classes: 'd-md-none',
-             width: 20,
-             height: 20) %>
-    <%= icon(name: 'search',
-             classes: 'd-none d-md-inline',
-             width: 27,
-             height: 27) %>
-  </label>
+<%= form_tag spree.products_path, method: :get, class: "search__form" do %>
+    <select class="search__categories" aria-label="Category">
+        <option value="all">All Categories</option>
+        <% spree_navigation_data.each do |root| %>   
+            <option><%= root[:title] %></option>
+            <% if root[:items].present? %>
+                <% root[:items].each do |item| %>   
+                    <option>&nbsp;&nbsp;&nbsp;&nbsp; <%= item[:title] %> </option>
+                <% end %>
+            <% end %>
+        <% end %>
+    </select>
+        <%= search_field_tag :keywords,
+            params[:keywords],
+            placeholder: Spree.t(:search),
+            autofocus: true,
+            class: "search__input"
+    %>
+    <button class="search__button search__button--type--submit" type="submit">
+        <svg width="20px" height="20px">
+            <use xlink:href="assets/sprite.svg#search-20"></use>
+        </svg>
+    </button>
+    <div class="search__border"></div>
 <% end %>
+
